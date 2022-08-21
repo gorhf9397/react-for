@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function Btn({ text, onClick }) {
+        console.log(text,"was rendered")
+      return (
+        <button
+          onClick={onClick} //클릭했을때 onclick 불러와진다
+          style={{
+            backgroundColor: "blue",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10
+          }}
+        >
+          {text}
+        </button>
+      );
+    }
+    const MemorizedBtn = React.memo(Btn)
+    function App() { //부모 컴포넌트
+        //상태변경 이됐을때 return이 새로 그려짐
+      const [value, setValue] = React.useState("Save Changes"); // 어플리케이션으로 부터 온 onclick함수
+      //Btn onclick 함수가 실행될때 changeValue 재설정
+      // 그리고 changevalue 가 바뀔때 setvalue 실행
+      const changeValue = () => setValue("Revert Changes");
+      return (
+        <div>   
+          <MemorizedBtn text={value} onClick={changeValue} />  
+          <MemorizedBtn text="Continue" />
+        </div>
+      );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+  </script>
+</html>

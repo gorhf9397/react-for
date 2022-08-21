@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function App() {
+      const [amount, setAmount] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (event) => {
+        setAmount(event.target.value);
+      };
+      const reset = () => setAmount(0);
+      const onFlip = () => { // inverted 를 반대로 전환시키는 함수
+        reset();
+        setInverted((current) => !current); // inverted 가 true false 일때 반대로 출력
+      }
+      return (
+        <div>
+          <h1>Super Converter</h1>
+          <div>
+            <label htmlfor="minutes">Minutes</label>
+            <input
+              value={inverted ? amount * 60 : amount} // value 값을 state 로 연결
+                    // minutes 가 disabled 상태일땐 amount * 60 의 상태
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange} // 스스로 업데이트
+              disabled={inverted === true}
+            />
+          </div>
+          <div>
+            <label htmlfor="hours">Hours</label>
+            <input
+              value={inverted ? amount : Math.round(amount / 60)}
+                    // inverted 상태라면 state값을 그대로보여준다, inverted 상태가 아니라면 변환된 값을 보여준다
+              id="hours"
+              placeholder="Hours"
+              type="number"
+              disabled={inverted === false}
+              onChange={onChange}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onFlip}>{inverted ? "Turnback" : "Invert"}</button>
+        </div>
+      );
+    }
+    const root = document.getElementById("root");
+    ReactDOM.render(<App />, root);
+  </script>
+</html>

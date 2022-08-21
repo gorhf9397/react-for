@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+    function App() {
+      //modifier 함수를 사용해 state 데이터를 바꿀때 component 새로운 값을 렌더링
+      const [counter, setCounter] = React.useState(0);  // counter 데이터를 받아서 return안에 데이터를 담는다
+            //state   modifier
+      const onClick = () => {
+        setCounter(counter + 1);
+        //counter = counter + 1;
+        //console.log(counter);
+      };
+      return (  // 사용자가 보게될 component(요소)
+        <div>
+          <h3>Total click: {counter}</h3>
+          <button onClick={onClick}>Click me</button>
+        </div>
+      );
+    }
+    ReactDOM.render(<App />, root);
+  </script>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script>
+        const root = document.querySelector("#root");
+        const h3 = React.createElement(
+            "h3", 
+            {
+            id : "title",
+            onMouseEnter: () => console.log("mouse enter")
+            } , 
+            "Hello i'm a span");
+        const btn = React.createElement(
+            "button", 
+            {
+            onClick: () => console.log("im clicked"),
+            style: {
+                backgroundColor: "tomato",
+            }
+            },
+            "Click me!");
+        // span을 먼저, button 을 그 다음으로 render 하기위해서
+        // div 세번째 property에 [h3, btn] 삽입
+        const container = React.createElement("div", null, [h3, btn]);
+        // render은 React element를 가지고HTML로 만들어 배치한다 
+        // span을 root 안에다가 render 한다. 기능은 innerHTML과 비슷한거같다
+        ReactDOM.render(container, root);
+    </script>
+</html>
